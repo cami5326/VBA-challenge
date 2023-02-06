@@ -7,7 +7,7 @@ Sub tickerData():
         Dim WorksheetName As String
         WorksheetName = ws.Name 'stores the names of the worksheets
           
-     'Name the columns in all the worksheets
+    'Name the columns in all the worksheets
     ws.Range("I1").Value = "Ticker"
     ws.Range("J1").Value = "Yearly Change"
     ws.Range("K1").Value = "Percent Change"
@@ -18,31 +18,26 @@ Sub tickerData():
     ws.Range("P1").Value = "Ticker"
     ws.Range("Q1").Value = "Value"
     
-    ' first find the last row in all the worksheets
-
-    lastRow = ws.Cells(Rows.Count, 1).End(xlUp).row
     
-     ' check on the ticker names
+        ' check on the ticker names
         Dim tickerName As String
     
-      ' variable to hold the totals for the tickers
+        ' variable to hold the totals for the tickers
         Dim tickerVolume As Double
-        tickerVolume = 0   ' start the initial total at 0
-     
-     ' variable to hold the rows in the total colums (columns A and G)
+             
+        ' variable to hold the rows in the total colums (columns A and G)
         Dim tickerRows As Double
-        tickerRows = 2 ' first row to populate in columns will be row 2
-    
-     ' declare variable to hold the row
+        
+        ' declare variable to hold the row
         Dim row As Double
      
-      ' declare variable to hold the first open ticker value
+        ' declare variable to hold the first open ticker value
         Dim openTicker As Double
         
-       ' declare variable to hold the last close ticker value
+        ' declare variable to hold the last close ticker value
         Dim closeTicker As Double
         
-       ' declare variable to hold the yearly change value = last close - first open
+        ' declare variable to hold the yearly change value = last close - first open
         Dim YearlyChange As Double
         
         ' declare variable to hold the percentage change value = (last closed - first open) / first open
@@ -65,11 +60,16 @@ Sub tickerData():
         
         ' declare variable to hold the the Greatest Total Volume value
         Dim maxVolume As Double
-   
+        
+        tickerVolume = 0   ' start the initial total at 0
+        tickerRows = 2 ' first row to populate in columns will be row 2
         maxPercentage = 0  ' start the initial total at 0
+        
+        ' find the last row in all the worksheets
+        lastRow = ws.Cells(Rows.Count, 1).End(xlUp).row
     
-      ' loop through the rows and check the changes in the tickers
-     For row = 2 To lastRow
+    ' loop through the rows and check the changes in the tickers
+    For row = 2 To lastRow
     
        ' check the changes in the tickers, last row of the ticker
         If ws.Cells(row + 1, 1).Value <> ws.Cells(row, 1).Value Then
@@ -87,7 +87,7 @@ Sub tickerData():
              ws.Cells(tickerRows, 12).Value = tickerVolume
              
              ' set the last close ticker value
-             closeTicker = ws.Cells(row, 5).Value
+             closeTicker = ws.Cells(row, 6).Value
              
              ' set the Yearly Change value
              YearlyChange = closeTicker - openTicker
@@ -126,8 +126,7 @@ Sub tickerData():
                     
                 End If
             
-            
-                        
+                            
          ' prints the results for YearlyChange and percentageChange values and sets formatting
          ws.Cells(tickerRows, 10).Value = YearlyChange
          
@@ -137,9 +136,7 @@ Sub tickerData():
           
          ws.Cells(tickerRows, 11).NumberFormat = "0.00%"
           
-       
-          
-                   
+        
                 'sets color for Yearly Change Column J
                 If YearlyChange > 0 Then
                        
@@ -198,12 +195,9 @@ Sub tickerData():
           ws.Cells(3, 17).NumberFormat = "0.00%"
           ws.Cells.EntireColumn.AutoFit
                    
-       
+    
    
    Next ws
 
 End Sub
-
-
-
 
